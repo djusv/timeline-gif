@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+
 'use strict'
 
 const yargs = require('yargs')
@@ -28,12 +29,9 @@ const argv = yargs
   .option('q', {
     alias: 'quality',
     default: '20',
-    describe: 'Set the quality',
+    describe: 'The quality of the gif',
     type: 'number'
   })
   .argv
 
-
-timelineGif.getTimelineEntries(argv._[0], argv.fps)
-.then((entries) => timelineGif.timelineEntriesToGif(entries, argv))
-.catch((err) => exitOnError(err));
+timelineGif.toGif(argv._[0], argv).catch((err) => exitOnError(err));

@@ -1,6 +1,6 @@
 {
   "name": "timeline-gif",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Extract the screenshots stored in Chrome Devtool timeline files into gifs",
   "keywords": [
     "chrome",
@@ -23,7 +23,7 @@
   },
   "main": "index.js",
   "bin": {
-    "timeline-gif": "bin/timeline-gif"
+    "timeline-gif": "./bin/timeline-gif.js"
   },
   "engines": {
     "node": ">=4.0"

@@ -6,28 +6,14 @@ const path = require('path');
 /**
  * Convert and save an array of screenshots to a gif
  * @param  {timelineEntry[]} screenshotEntries  timeline entries to convert
- * @param  {Object} opts
+ * @param  {String} outputPath
  * @return {Promise} resolve with the all saved screenshots
  */
-function toImages(screenshotEntries, opts) {
-  opts = Object.assign({
-    output: './screenshots',
-    fps: 10
-  }, opts)
-  return saveImages(screenshotEntries, opts.output);
-}
-
-/**
- * Saves a screenshot entry on the disk
- * @param  {timelineEntry[]} screenshotEntries
- * @param  {String} output
- * @return {Promise} resolved with the image file paths
- */
-function saveImages(screenshotEntries, output) {
+function saveEntries(screenshotEntries, outputPath='./screenshots') {
   const saveAll = screenshotEntries.map((entry, index) => {
     const fileName = `screenshot-${(index + '').padStart(4, '0')}.png`
-    const filePath = path.resolve(output, fileName)
-    return saveScreenshotEntry(entry, filePath);
+    const filePath = path.resolve(outputPath, fileName)
+    return saveEntry(entry, filePath);
   });
   return Promise.all(saveAll);
 }
@@ -38,11 +24,11 @@ function saveImages(screenshotEntries, output) {
  * @param  {String} filePath
  * @return {Promise} resolving the file image path
  */
-function saveScreenshotEntry(entry, filePath) {
+function saveEntry(entry, filePath) {
   const fileContent = entry.args.snapshot;
   return fse.outputFile(filePath, fileContent, 'base64');
 }
 
 module.exports = {
-  toImages
+  saveEntries
 }
